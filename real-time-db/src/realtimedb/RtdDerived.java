@@ -12,19 +12,19 @@ import java.util.Iterator;
  *
  * @author demian
  */
-public class DtrDerived<T extends Comparable<T>> extends DtrBase<T> {
-    private Collection<Dtr<T>> readSet;
+public class RtdDerived<T extends Comparable<T>> extends RtdBase<T> {
+    private Collection<Rtd<T>> readSet;
 
-    public DtrDerived() {
-        this.readSet = new ArrayList<Dtr<T>>();
+    public RtdDerived() {
+        this.readSet = new ArrayList<Rtd<T>>();
     }
     
-    public void addDTRReadSet(Dtr<T> data) {
+    public void addRtdReadSet(Rtd<T> data) {
         readSet.add(data);
     }
 
     @Override
-    public void setData(T data) throws DtrException {
+    public void setData(T data) throws RtdException {
         super.setData(data);
         // side effect: refresh de limit interval with min and max intervals of data set
         refreshLimitInterval();
@@ -34,7 +34,7 @@ public class DtrDerived<T extends Comparable<T>> extends DtrBase<T> {
         setLowerLimitInterval(-1);
         setUpperLimitInterval(-1);
         for (Iterator it=readSet.iterator(); it.hasNext(); ) {
-            Dtr<T> element = (Dtr<T>) it.next();
+            Rtd<T> element = (Rtd<T>) it.next();
             if (getLowerLimitInterval() == -1 || getUpperLimitInterval() == -1) {
                 setLowerLimitInterval(element.getLowerLimitInterval());
                 setUpperLimitInterval(element.getUpperLimitInterval());

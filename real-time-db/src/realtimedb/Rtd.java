@@ -8,19 +8,19 @@ package realtimedb;
  *
  * @author demian
  */
- abstract public class Dtr<T extends Comparable<T>> {
+ abstract public class Rtd<T extends Comparable<T>> {
      // TODO evaluar la exclusión mutua en el set y get de data;
      protected  T data;
      private long lowerLimitInterval = -1;
      private long upperLimitInterval = -1;
 
-    public T getData() throws DtrException{
+    public T getData() throws RtdException{
         // valid data? check temporal restriction
         long now = System.currentTimeMillis();
         if (lowerLimitInterval <= now && now <= upperLimitInterval) {
             return data;
         } else {
-            throw new DtrDataHasExpired("Dtr Data has expired within lower and upper bound limits.");
+            throw new RtdOutOfTemporalBounds("Rtd is Out of Temporal Bound limits");
         }
     }
     
@@ -39,5 +39,5 @@ package realtimedb;
         this.upperLimitInterval = upperLimitInterval;
     }
 
-    abstract public void setData(T data) throws DtrException ;
+    abstract public void setData(T data) throws RtdException ;
 }
