@@ -106,6 +106,7 @@ public class RtdTest {
         memWorkLoad.setMaxValid(new Float(100));
         loadTrend.setMinValid(new Float(0));
         loadTrend.setMaxValid(new Float(100));
+        mesurableVal.setMinValid(new Float(0));
 
         // set initial time
         long initialTime = System.currentTimeMillis();

@@ -12,7 +12,7 @@ import java.util.Iterator;
  *
  * @author demian
  */
-public class RtdDerived<T extends Comparable<T>> extends RtdBase<T> {
+public class RtdDerived<T extends Comparable<T>> extends Rtd<T> {
     private Collection<Rtd<T>> readSet;
 
     public RtdDerived() {
@@ -25,7 +25,7 @@ public class RtdDerived<T extends Comparable<T>> extends RtdBase<T> {
 
     @Override
     public void setData(T data) throws RtdException {
-        super.setData(data);
+        this.data = data;
         // side effect: refresh de limit interval with min and max intervals of data set
         refreshLimitInterval();
     }
