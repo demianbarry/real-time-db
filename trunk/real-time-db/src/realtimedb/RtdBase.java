@@ -8,7 +8,7 @@ package realtimedb;
  *
  * @author demian
  */
-abstract public class DtrBase<T extends Comparable<T>> extends Dtr<T>  {
+abstract public class RtdBase<T extends Comparable<T>> extends Rtd<T>  {
     private T maxDataError;
     private T minValid = null;
     private T maxValid = null;
@@ -38,13 +38,13 @@ abstract public class DtrBase<T extends Comparable<T>> extends Dtr<T>  {
     }
 
     @Override
-    public void setData(T data) throws DtrException {
+    public void setData(T data) throws RtdException {
         // Check acceptable values
         // min and max defined!
         if (minValid != null && maxValid != null) {
             // data berween min and max values only if defined
             if (!(minValid.compareTo(data) <= 0 && data.compareTo(maxValid) <= 0)) {
-                throw new NotValidDtrData("Data is not valid in range.");
+                throw new RtdNotValidData("Data is not valid in range.");
             }
         }
         // data change?
@@ -55,7 +55,7 @@ abstract public class DtrBase<T extends Comparable<T>> extends Dtr<T>  {
             // side effect: set the lower limit of data interval with now
             setLowerLimitInterval(System.currentTimeMillis());
         } else {
-            throw new DataPrecisionErrorDtr("Data hava a precisionError.");
+            throw new RtdDataPrecisionError("Data hava a precisionError.");
         }
     }
 }
