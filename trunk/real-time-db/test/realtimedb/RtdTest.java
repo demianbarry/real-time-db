@@ -59,6 +59,7 @@ public class RtdTest {
         cpuWorkLoad.setMaxValid(new Float(50));
         try {
             cpuWorkLoad.setData(new Float(60));
+            fail("Data not in valid range");
         } catch (RtdNotValidData ex) {
             assertNotNull("Exception exit for not valid data for float type", ex);
         } catch (RtdException ex) {
@@ -76,6 +77,7 @@ public class RtdTest {
         testByteDiscrete.setMinValid(new Byte((byte) 15));
         try {
             testByteDiscrete.setData(new Byte((byte) 25));
+            //fail("Data not in valid range");
         } catch (RtdNotValidData ex) {
             assertNotNull("Exception exit for not valid data for byte type", ex);
         } catch (RtdException ex) {
@@ -106,7 +108,6 @@ public class RtdTest {
         memWorkLoad.setMaxValid(new Float(100));
         loadTrend.setMinValid(new Float(0));
         loadTrend.setMaxValid(new Float(100));
-        mesurableVal.setMinValid(new Float(0));
 
         // set initial time
         long initialTime = System.currentTimeMillis();
@@ -201,6 +202,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
+            assertTrue(new Float(35).equals(memWorkLoad.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
