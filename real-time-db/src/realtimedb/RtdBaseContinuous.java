@@ -33,6 +33,13 @@ public class RtdBaseContinuous<T extends Comparable<T>> extends RtdBase<T> {
     }
     
 
+    @Override
+    public void setValue(T value) throws RtdException {
+        super.setValue(value);
+        // side effect: set upper limit of the data interval with the lower interval plus the permited maximun age
+        setVIUpperBound(getVILowerBound() + maximumAge);
+    }
+
     protected  long getDuration() {
         return maximumAge;
     }
@@ -47,12 +54,5 @@ public class RtdBaseContinuous<T extends Comparable<T>> extends RtdBase<T> {
 
     protected  void setPeriod(long period) {
         this.period = period;
-    }
-
-    @Override
-    public void setData(T data) throws RtdException {
-        super.setData(data);
-        // side effect: set upper limit of the data interval with the lower interval plus the permited maximun age
-        setUpperLimitInterval(getLowerLimitInterval() + maximumAge);
     }
 }

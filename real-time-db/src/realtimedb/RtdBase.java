@@ -13,6 +13,28 @@ abstract public class RtdBase<T extends Comparable<T>> extends Rtd<T>  {
     private T minValid = null;
     private T maxValid = null;
 
+    @Override
+    public void setValue(T value) throws RtdException {
+        // Check acceptable values
+        // min and max defined!
+        if (minValid != null && maxValid != null) {
+            // value berween min and max values only if defined
+            if (!(minValid.compareTo(value) <= 0 && value.compareTo(maxValid) <= 0)) {
+                throw new RtdNotValidData("Value is not valid in range.");
+            }
+        }
+        // value change?
+        // TODO queda pendiente resolver la comparación del abs en el genérico
+        // Una solución es preguntar si es clase Number y castear
+        if (true) {
+            this.value = value;
+            // side effect: set the lower limit of data interval with now
+            setVILowerBound(System.currentTimeMillis());
+        } else {
+            throw new RtdDataPrecisionError("Value hava a precisionError.");
+        }
+    }
+    
     protected  T getMaxDataError() {
         return maxDataError;
     }
@@ -37,25 +59,5 @@ abstract public class RtdBase<T extends Comparable<T>> extends Rtd<T>  {
         this.minValid = minValid;
     }
 
-    @Override
-    public void setData(T data) throws RtdException {
-        // Check acceptable values
-        // min and max defined!
-        if (minValid != null && maxValid != null) {
-            // data berween min and max values only if defined
-            if (!(minValid.compareTo(data) <= 0 && data.compareTo(maxValid) <= 0)) {
-                throw new RtdNotValidData("Data is not valid in range.");
-            }
-        }
-        // data change?
-        // TODO queda pendiente resolver la comparación del abs en el genérico
-        // Una solución es preguntar si es clase Number y castear
-        if (true) {
-            this.data = data;
-            // side effect: set the lower limit of data interval with now
-            setLowerLimitInterval(System.currentTimeMillis());
-        } else {
-            throw new RtdDataPrecisionError("Data hava a precisionError.");
-        }
-    }
+   
 }
