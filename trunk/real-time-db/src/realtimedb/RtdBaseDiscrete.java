@@ -15,8 +15,8 @@ public class RtdBaseDiscrete<T extends Comparable<T>> extends RtdBase<T> {
     }
 
     @Override
-    public void setData(T data) throws RtdException {
-        super.setData(data);
-        setUpperLimitInterval(Long.MAX_VALUE);
+    public void setValue(T value) throws RtdException {
+        super.setValue(value);
+        setVIUpperBound(Long.MAX_VALUE);
     }
 }

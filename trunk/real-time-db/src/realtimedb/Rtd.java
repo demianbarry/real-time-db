@@ -9,35 +9,36 @@ package realtimedb;
  * @author demian
  */
  abstract public class Rtd<T extends Comparable<T>> {
-     // TODO evaluar la exclusión mutua en el set y get de data;
-     protected  T data;
-     private long lowerLimitInterval = -1;
-     private long upperLimitInterval = -1;
+     // TODO evaluar la exclusión mutua en el set y get de value;
+     protected  T value;
+     private long VILowerBound = -1;
+     private long VIUpperBound = -1;
 
-    public T getData() throws RtdException{
-        // valid data? check temporal restriction
+    public T getValue() throws RtdException{
+        // valid value? check temporal restriction
         long now = System.currentTimeMillis();
-        if (lowerLimitInterval <= now && now <= upperLimitInterval) {
-            return data;
+        if (VILowerBound <= now && now <= VIUpperBound) {
+            return value;
         } else {
             throw new RtdOutOfTemporalBounds("Rtd is Out of Temporal Bound limits");
         }
     }
+
+    abstract public void setValue(T value) throws RtdException ;
     
-    protected  long getLowerLimitInterval(){
-        return lowerLimitInterval;
+    protected  long getVILowerBound(){
+        return VILowerBound;
     }
-    protected  long getUpperLimitInterval(){
-        return upperLimitInterval;
+    protected  long getVIUpperBound(){
+        return VIUpperBound;
     }
 
-    protected  void setLowerLimitInterval(long lowerLimitInterval) {
-        this.lowerLimitInterval = lowerLimitInterval;
+    protected  void setVILowerBound(long VILowerBound) {
+        this.VILowerBound = VILowerBound;
     }
     
-    protected  void setUpperLimitInterval(long upperLimitInterval) {
-        this.upperLimitInterval = upperLimitInterval;
+    protected  void setVIUpperBound(long VIUpperBound) {
+        this.VIUpperBound = VIUpperBound;
     }
 
-    abstract public void setData(T data) throws RtdException ;
 }

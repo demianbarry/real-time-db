@@ -18,34 +18,35 @@ public class RtdDerived<T extends Comparable<T>> extends Rtd<T> {
     public RtdDerived() {
         this.readSet = new ArrayList<Rtd<T>>();
     }
+
+    @Override
+    public void setValue(T value) throws RtdException {
+        this.value = value;
+        // side effect: refresh de limit interval with min and max intervals of data set
+        refreshLimitInterval();
+    }
     
     public void addRtdReadSet(Rtd<T> data) {
         readSet.add(data);
     }
 
-    @Override
-    public void setData(T data) throws RtdException {
-        this.data = data;
-        // side effect: refresh de limit interval with min and max intervals of data set
-        refreshLimitInterval();
-    }
     
     protected void refreshLimitInterval(){
-        setLowerLimitInterval(-1);
-        setUpperLimitInterval(-1);
+        setVILowerBound(-1);
+        setVIUpperBound(-1);
         for (Iterator it=readSet.iterator(); it.hasNext(); ) {
             Rtd<T> element = (Rtd<T>) it.next();
-            if (getLowerLimitInterval() == -1 || getUpperLimitInterval() == -1) {
-                setLowerLimitInterval(element.getLowerLimitInterval());
-                setUpperLimitInterval(element.getUpperLimitInterval());
+            if (getVILowerBound() == -1 || getVIUpperBound() == -1) {
+                setVILowerBound(element.getVILowerBound());
+                setVIUpperBound(element.getVIUpperBound());
             } else {
-                if (getLowerLimitInterval() < element.getLowerLimitInterval()) {
-                    setLowerLimitInterval(element.getLowerLimitInterval());
+                if (getVILowerBound() < element.getVILowerBound()) {
+                    setVILowerBound(element.getVILowerBound());
                 }
                 // if discrete don't set upper limit
                 // TODO revisar con charly el concepto de discreto respecto del upper limit
-                if (getUpperLimitInterval() > element.getUpperLimitInterval()){
-                    setUpperLimitInterval(element.getUpperLimitInterval());
+                if (getVIUpperBound() > element.getVIUpperBound()){
+                    setVIUpperBound(element.getVIUpperBound());
                 }
             }
         }
