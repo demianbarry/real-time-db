@@ -38,6 +38,6 @@ public class DTRBaseContinuous<T extends Comparable<T>> extends DtrBase<T> {
     public void setData(T data) throws DtrException {
         super.setData(data);
         // side effect: set upper limit of the data interval with the lower interval plus the permited maximun age
-        setUpperLimitInterval(getLowerLimitInterval() + maximumAge);
+        setValidityIntervalUpperBound(getValidityIntervalLowerBound() + maximumAge);
     }
 }

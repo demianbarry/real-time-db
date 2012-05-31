@@ -17,6 +17,6 @@ public class DTRBaseDiscrete<T extends Comparable<T>> extends DtrBase<T> {
     @Override
     public void setData(T data) throws DtrException {
         super.setData(data);
-        setUpperLimitInterval(Long.MAX_VALUE);
+        setValidityIntervalUpperBound(Long.MAX_VALUE);
     }
 }
