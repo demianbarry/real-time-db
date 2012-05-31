@@ -147,36 +147,36 @@ public class DtrTest {
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getUpperLimitInterval());
-        assertTrue(initialTime >= cpuWorkLoad.getLowerLimitInterval() && currentTime <= cpuWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getUpperLimitInterval());
-        assertTrue(initialTime >= memWorkLoad.getLowerLimitInterval() && currentTime <= memWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getLowerLimitInterval());
-        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getUpperLimitInterval());
-        assertTrue(initialTime >= loadTrend.getLowerLimitInterval() && currentTime <= loadTrend.getUpperLimitInterval());
+        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("mesurableVal data: " + mesurableVal.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getLowerLimitInterval());
-        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getUpperLimitInterval());
-        assertTrue(initialTime >= mesurableVal.getLowerLimitInterval() && currentTime <= mesurableVal.getUpperLimitInterval());
+        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= mesurableVal.getValidityIntervalLowerBound() && currentTime <= mesurableVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
         System.out.println();
@@ -194,36 +194,36 @@ public class DtrTest {
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getUpperLimitInterval());
-        assertTrue(initialTime >= cpuWorkLoad.getLowerLimitInterval() && currentTime <= cpuWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getUpperLimitInterval());
-        assertTrue(initialTime >= memWorkLoad.getLowerLimitInterval() && currentTime <= memWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getLowerLimitInterval());
-        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getUpperLimitInterval());
-        assertTrue(initialTime >= loadTrend.getLowerLimitInterval() && currentTime <= loadTrend.getUpperLimitInterval());
+        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("mesurableVal data: " + mesurableVal.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getLowerLimitInterval());
-        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getUpperLimitInterval());
-        assertTrue(initialTime >= mesurableVal.getLowerLimitInterval() && currentTime <= mesurableVal.getUpperLimitInterval());
+        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= mesurableVal.getValidityIntervalLowerBound() && currentTime <= mesurableVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
         System.out.println();
@@ -243,27 +243,27 @@ public class DtrTest {
             assertNotNull(ex.getMessage(), ex);
             System.out.println("cpuWorkLoad: " + ex.getMessage());
         }
-        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getUpperLimitInterval());
-        assertFalse(initialTime >= cpuWorkLoad.getLowerLimitInterval() && currentTime <= cpuWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getUpperLimitInterval());
-        assertTrue(initialTime >= memWorkLoad.getLowerLimitInterval() && currentTime <= memWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getLowerLimitInterval());
-        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getUpperLimitInterval());
-        assertTrue(initialTime >= loadTrend.getLowerLimitInterval() && currentTime <= loadTrend.getUpperLimitInterval());
+        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("mesurableVal data: " + mesurableVal.getData());
@@ -272,9 +272,9 @@ public class DtrTest {
             assertNotNull(ex.getMessage(), ex);
             System.out.println("mesurableVal: " + ex.getMessage());
         }
-        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getLowerLimitInterval());
-        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getUpperLimitInterval());
-        assertFalse(initialTime >= mesurableVal.getLowerLimitInterval() && currentTime <= mesurableVal.getUpperLimitInterval());
+        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= mesurableVal.getValidityIntervalLowerBound() && currentTime <= mesurableVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
 
@@ -293,9 +293,9 @@ public class DtrTest {
             assertNotNull(ex.getMessage(), ex);
             System.out.println("cpuWorkLoad: " + ex.getMessage());
         }
-        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getUpperLimitInterval());
-        assertFalse(initialTime >= cpuWorkLoad.getLowerLimitInterval() && currentTime <= cpuWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
@@ -304,18 +304,18 @@ public class DtrTest {
             assertNotNull(ex.getMessage(), ex);
             System.out.println("memWorkLoad: " + ex.getMessage());
         }
-        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getLowerLimitInterval());
-        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getUpperLimitInterval());
-        assertFalse(initialTime >= memWorkLoad.getLowerLimitInterval() && currentTime <= memWorkLoad.getUpperLimitInterval());
+        System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
         } catch (DtrException ex) {
             fail(ex.getMessage());
         }
-        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getLowerLimitInterval());
-        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getUpperLimitInterval());
-        assertTrue(initialTime >= loadTrend.getLowerLimitInterval() && currentTime <= loadTrend.getUpperLimitInterval());
+        System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("mesurableVal data: " + mesurableVal.getData());
@@ -324,9 +324,9 @@ public class DtrTest {
             assertNotNull(ex.getMessage(), ex);
             System.out.println("mesurableVal: " + ex.getMessage());
         }
-        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getLowerLimitInterval());
-        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getUpperLimitInterval());
-        assertFalse(initialTime >= mesurableVal.getLowerLimitInterval() && currentTime <= mesurableVal.getUpperLimitInterval());
+        System.out.println("Lower limit interval for mesurableVal: " + mesurableVal.getValidityIntervalLowerBound());
+        System.out.println("Upper limit interval for mesurableVal: " + mesurableVal.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= mesurableVal.getValidityIntervalLowerBound() && currentTime <= mesurableVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
     

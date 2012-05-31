@@ -31,21 +31,21 @@ public class DtrDerived<T extends Comparable<T>> extends DtrBase<T> {
     }
     
     protected void refreshLimitInterval(){
-        setLowerLimitInterval(-1);
-        setUpperLimitInterval(-1);
+        setValidityIntervalLowerBound(-1);
+        setValidityIntervalUpperBound(-1);
         for (Iterator it=readSet.iterator(); it.hasNext(); ) {
             Dtr<T> element = (Dtr<T>) it.next();
-            if (getLowerLimitInterval() == -1 || getUpperLimitInterval() == -1) {
-                setLowerLimitInterval(element.getLowerLimitInterval());
-                setUpperLimitInterval(element.getUpperLimitInterval());
+            if (getValidityIntervalLowerBound() == -1 || getValidityIntervalUpperBound() == -1) {
+                setValidityIntervalLowerBound(element.getValidityIntervalLowerBound());
+                setValidityIntervalUpperBound(element.getValidityIntervalUpperBound());
             } else {
-                if (getLowerLimitInterval() < element.getLowerLimitInterval()) {
-                    setLowerLimitInterval(element.getLowerLimitInterval());
+                if (getValidityIntervalLowerBound() < element.getValidityIntervalLowerBound()) {
+                    setValidityIntervalLowerBound(element.getValidityIntervalLowerBound());
                 }
                 // if discrete don't set upper limit
                 // TODO revisar con charly el concepto de discreto respecto del upper limit
-                if (getUpperLimitInterval() > element.getUpperLimitInterval()){
-                    setUpperLimitInterval(element.getUpperLimitInterval());
+                if (getValidityIntervalUpperBound() > element.getValidityIntervalUpperBound()){
+                    setValidityIntervalUpperBound(element.getValidityIntervalUpperBound());
                 }
             }
         }
