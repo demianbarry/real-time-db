@@ -69,7 +69,7 @@ abstract public class RtdBase<T> extends Rtd<T>  {
         Type[] intfs = data.getClass().getGenericInterfaces();
         if (intfs.length != 0) {
             for (Type intf : intfs) {
-                if (intf.getClass().getName().equalsIgnoreCase("comparable")) {
+                if (intf.toString().contains("Comparable")) {
                     return true;
                 }
             }
