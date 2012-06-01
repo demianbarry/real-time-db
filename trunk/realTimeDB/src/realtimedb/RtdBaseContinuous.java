@@ -8,7 +8,7 @@ package realtimedb;
  *
  * @author demian
  */
-public class RtdBaseContinuous<T extends Comparable<T>> extends RtdBase<T> {
+public class RtdBaseContinuous<T> extends RtdBase<T> {
     private long maximumAge;
     private long period;
 

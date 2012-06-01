@@ -8,7 +8,7 @@ package realtimedb;
  *
  * @author demian
  */
-public class RtdBaseDiscrete<T extends Comparable<T>> extends RtdBase<T> {
+public class RtdBaseDiscrete<T> extends RtdBase<T> {
 
     public RtdBaseDiscrete() {
         
