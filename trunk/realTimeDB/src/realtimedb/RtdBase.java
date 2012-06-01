@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * @author demian
  */
-abstract public class DtrBase<T> extends Dtr<T>  {
+abstract public class RtdBase<T> extends Rtd<T>  {
     private T maxDataError = null;
     private T minValid = null;
     private T maxValid = null;
@@ -44,7 +44,7 @@ abstract public class DtrBase<T> extends Dtr<T>  {
     }
 
     @Override
-    public void setData(T data) throws DtrException {
+    public void setData(T data) throws RtdException {
         // Check acceptable values
         // min and max defined! Only if T is Comparable
         if (isComparable(data)) {
@@ -55,7 +55,7 @@ abstract public class DtrBase<T> extends Dtr<T>  {
                 Comparable dataComparable = (Comparable) data;
                 // data berween min and max values only if defined
                 if (!(minValidComparable.compareTo(dataComparable) <= 0 && dataComparable.compareTo(maxValidComparable) <= 0)) {
-                    throw new NotValidDtrData("Data is not valid in range.");
+                    throw new NotValidRtdData("Data is not valid in range.");
                 }
             }
         }
@@ -102,9 +102,6 @@ abstract public class DtrBase<T> extends Dtr<T>  {
                     return this.data;
                 }
             } else if (data instanceof Float) {
-                System.out.println("data: " + ((Float) data).floatValue());
-                System.out.println("this.data: " + ((Float) this.data).floatValue());
-                System.out.println("maxDataError: " + ((Float) maxDataError).floatValue());
                 if (Math.abs(((Float) data).floatValue() - ((Float) this.data).floatValue()) <= ((Float) maxDataError).floatValue()) {
                     // discard if the variation between the data registered value and the new value is not sufficiently significant.
                     return this.data;

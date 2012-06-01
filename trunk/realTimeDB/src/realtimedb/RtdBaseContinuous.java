@@ -8,11 +8,11 @@ package realtimedb;
  *
  * @author demian
  */
-public class DTRBaseContinuous<T extends Comparable<T>> extends DtrBase<T> {
+public class RtdBaseContinuous<T extends Comparable<T>> extends RtdBase<T> {
     private long maximumAge;
     private long period;
 
-    public DTRBaseContinuous(long maximumAge, T maxDataError) {
+    public RtdBaseContinuous(long maximumAge, T maxDataError) {
         this.maximumAge = maximumAge;
         setMaxDataError(maxDataError);
         this.period = maximumAge / 2;
@@ -35,7 +35,7 @@ public class DTRBaseContinuous<T extends Comparable<T>> extends DtrBase<T> {
     }
 
     @Override
-    public void setData(T data) throws DtrException {
+    public void setData(T data) throws RtdException {
         super.setData(data);
         // side effect: set upper limit of the data interval with the lower interval plus the permited maximun age
         setValidityIntervalUpperBound(getValidityIntervalLowerBound() + maximumAge);

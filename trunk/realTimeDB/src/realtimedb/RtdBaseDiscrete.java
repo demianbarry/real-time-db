@@ -8,14 +8,14 @@ package realtimedb;
  *
  * @author demian
  */
-public class DTRBaseDiscrete<T extends Comparable<T>> extends DtrBase<T> {
+public class RtdBaseDiscrete<T extends Comparable<T>> extends RtdBase<T> {
 
-    public DTRBaseDiscrete() {
+    public RtdBaseDiscrete() {
         
     }
 
     @Override
-    public void setData(T data) throws DtrException {
+    public void setData(T data) throws RtdException {
         super.setData(data);
         setValidityIntervalUpperBound(Long.MAX_VALUE);
     }
