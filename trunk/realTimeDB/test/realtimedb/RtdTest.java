@@ -33,8 +33,8 @@ public class RtdTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         // Create all Rtd objects. Asign objetcs to deriver Rtd.
-        cpuWorkLoad = new RtdBaseContinuous<Float>(maxEdgeCpuWorkLoad, new Float(50));
-        memWorkLoad = new RtdBaseContinuous<Float>(maxEdgeMemWorkLoad, new Float(100));
+        cpuWorkLoad = new RtdBaseContinuous<Float>(maxEdgeCpuWorkLoad);
+        memWorkLoad = new RtdBaseContinuous<Float>(maxEdgeMemWorkLoad);
         loadTrend = new RtdBaseDiscrete<Float>();
         
         mesurableVal = new RtdDerived<Float>();
@@ -53,12 +53,13 @@ public class RtdTest {
      * Test of application with Rtd data having temporal restrictions.
      */
     @Test
-    public void testValidDataRtd() {
+    public void testValidDataRtd() throws InterruptedException {
         // validate data renge of cpuWorkLoad
         cpuWorkLoad.setMinValid(new Float(30));
         cpuWorkLoad.setMaxValid(new Float(50));
         try {
             cpuWorkLoad.setData(new Float(60));
+            fail("Data not in valid range");
         } catch (NotValidRtdData ex) {
             assertNotNull("Exception exit for not valid data for float type", ex);
         } catch (RtdException ex) {
@@ -73,9 +74,10 @@ public class RtdTest {
         
         // validate data range for byte test type 
         testByteDiscrete.setMinValid(new Byte((byte) 5));
-        testByteDiscrete.setMinValid(new Byte((byte) 15));
+        testByteDiscrete.setMaxValid(new Byte((byte) 15));
         try {
             testByteDiscrete.setData(new Byte((byte) 25));
+            fail("Data not in valid range");
         } catch (NotValidRtdData ex) {
             assertNotNull("Exception exit for not valid data for byte type", ex);
         } catch (RtdException ex) {
@@ -94,6 +96,95 @@ public class RtdTest {
             fail(ex.getMessage());
         }
         
+        // validate maxDataError nor change but valid time
+        System.out.println("*******************************");
+        System.out.println("***   Test maxDataError     ***");
+        System.out.println("*** set rate of change to 5 ***");
+        System.out.println("*******************************");
+
+        try {
+            cpuWorkLoad.setData(new Float(30));
+            assertTrue(new Float(30).equals(cpuWorkLoad.getData()));
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
+        
+
+        cpuWorkLoad.setMaxDataError(new Float(5.0));
+        try {
+            // set current time
+            cpuWorkLoad.setData(new Float(36));
+            System.out.println("set cpuWorkLoad data to 36");
+            System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
+            assertTrue(new Float(36).equals(cpuWorkLoad.getData()));
+            long currentTime = System.currentTimeMillis();
+            System.out.println("Current time: " + currentTime);
+            System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+            System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            System.out.println("----------------------------------------");
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
+
+        // Sleep 1 sec
+        Thread.sleep(1000);
+        
+        try {
+            // set current time
+            cpuWorkLoad.setData(new Float(35.66));
+            System.out.println("set cpuWorkLoad data to 36.66");
+            System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
+            assertTrue(new Float(36).equals(cpuWorkLoad.getData()));
+            long currentTime = System.currentTimeMillis();
+            System.out.println("Current time: " + currentTime);
+            System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+            System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            System.out.println("----------------------------------------");
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
+        
+        // Sleep 1 sec
+        Thread.sleep(1000);
+        
+        try {
+            // set current time
+            cpuWorkLoad.setData(new Float(39.99999));
+            System.out.println("set cpuWorkLoad data to 39.99999");
+            System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
+            assertTrue(new Float(36).equals(cpuWorkLoad.getData()));
+            long currentTime = System.currentTimeMillis();
+            System.out.println("Current time: " + currentTime);
+            System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+            System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            System.out.println("----------------------------------------");
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
+
+        // Sleep 1 sec
+        Thread.sleep(1000);
+        
+        try {
+            // set current time
+            cpuWorkLoad.setData(new Float(45));
+            System.out.println("set cpuWorkLoad data to 45");
+            System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
+            assertTrue(new Float(45).equals(cpuWorkLoad.getData()));
+            long currentTime = System.currentTimeMillis();
+            System.out.println("Current time: " + currentTime);
+            System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
+            System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            System.out.println("----------------------------------------");
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
+        
+
 
     }
 
@@ -136,6 +227,10 @@ public class RtdTest {
         
         // set current time
         long currentTime = System.currentTimeMillis();
+        
+        System.out.println("************************************************************");
+        System.out.println("*** Test Real Time data behaviour - Validity time bounds ***");
+        System.out.println("************************************************************");
 
         // print & verify time limits
         System.out.println("Test now: " + initialTime);
@@ -144,6 +239,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
+            assertTrue(new Float(60).equals(cpuWorkLoad.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -153,6 +249,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
+            assertTrue(new Float(35).equals(memWorkLoad.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -162,6 +259,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
+            assertTrue(new Float(50).equals(loadTrend.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -191,6 +289,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
+            assertTrue(new Float(60).equals(cpuWorkLoad.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -200,6 +299,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
+            assertTrue(new Float(35).equals(memWorkLoad.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -209,6 +309,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
+            assertTrue(new Float(50).equals(loadTrend.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -249,6 +350,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
+            assertTrue(new Float(35).equals(memWorkLoad.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -258,6 +360,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
+            assertTrue(new Float(50).equals(loadTrend.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
@@ -310,6 +413,7 @@ public class RtdTest {
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
+            assertTrue(new Float(50).equals(loadTrend.getData()));
         } catch (RtdException ex) {
             fail(ex.getMessage());
         }
