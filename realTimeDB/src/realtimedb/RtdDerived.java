@@ -12,7 +12,7 @@ import java.util.Iterator;
  *
  * @author demian
  */
-public class RtdDerived<T extends Comparable<T>> extends Rtd<T> {
+public class RtdDerived<T> extends Rtd<T> {
     private Collection<Rtd<T>> readSet;
 
     public RtdDerived() {
