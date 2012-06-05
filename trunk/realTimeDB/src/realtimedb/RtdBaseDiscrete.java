@@ -14,6 +14,18 @@ public class RtdBaseDiscrete<T> extends RtdBase<T> {
         
     }
 
+    public RtdBaseDiscrete(T maxDataError) {
+        setMaxDataError(maxDataError);
+    }
+    
+    public RtdBaseDiscrete(T maxDataError, T minValid, T maxValid) {
+        setMaxDataError(maxDataError);
+        setMinValid(minValid);
+        setMaxValid(maxValid);
+    }
+    
+    
+
     @Override
     public void setData(T data) throws RtdException {
         super.setData(data);

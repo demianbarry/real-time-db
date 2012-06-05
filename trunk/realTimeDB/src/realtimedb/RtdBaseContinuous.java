@@ -12,13 +12,16 @@ public class RtdBaseContinuous<T> extends RtdBase<T> {
     private long maximumAge;
     private long period;
 
+    public RtdBaseContinuous() {
+    }
+    
     public RtdBaseContinuous(long maximumAge) {
         this.maximumAge = maximumAge;
         setMaxDataError(null);
         this.period = maximumAge / 2;
     }
     
-    public RtdBaseContinuous(long maximumAge, T maxDataError) {
+    public RtdBaseContinuous(long maximumAge, T maxDataError, ValidatorRtdInterface validator) {
         this.maximumAge = maximumAge;
         setMaxDataError(maxDataError);
         this.period = maximumAge / 2;
