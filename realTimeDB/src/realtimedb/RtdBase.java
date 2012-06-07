@@ -49,21 +49,27 @@ abstract public class RtdBase<T> extends Rtd<T>  {
         if (validatorRtd != null) {
             // data berween min and max values only if defined
             if (minValid != null && maxValid != null) {
-                if (!validatorRtd.validRtdDataValidRage(minValid, maxValid)) {
+                if (!validatorRtd.validRtdDataValidRage(minValid, maxValid, data)) {
                     throw new NotValidRtdData("Data is not valid in range.");
                 }
             }
             
             // data change?
-            // Only chage if diference value means change.
-            if (maxDataError != null) {
-                if (validatorRtd.validRtdMaxDataError(this.data, data)) {
+            // Only chage if diference value means change and not first set.
+            if (maxDataError != null && this.data != null) {
+                if (validatorRtd.validRtdMaxDataError(this.data, data, maxDataError)) {
                     this.data = data;
                 }
+            } else {
+                // maxDataError not set: set vale anyway
+                this.data = data;
             }
             
             // set new valid range time
              setValidityIntervalLowerBound(System.currentTimeMillis());
+        } else {
+            // validator not set: set value anyway
+            this.data = data;
         }
         
     }
