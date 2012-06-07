@@ -10,7 +10,7 @@ package realtimedb;
  */
 interface ValidatorRtdInterface<T> {
     
-    public boolean validRtdMaxDataError(T compareFrom, T compareTo); // return true if realy data change
-    public boolean validRtdDataValidRage(T minValid, T maxValid); // return true if data is valid
+    public boolean validRtdMaxDataError(T compareFrom, T compareTo, T deltaToCompare); // return true if realy data change
+    public boolean validRtdDataValidRage(T minValid, T maxValid, T dataToCompare); // return true if data is valid
     
 }
