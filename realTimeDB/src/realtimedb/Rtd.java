@@ -16,8 +16,7 @@ package realtimedb;
 
     public T getData() throws RtdException{
         // valid data? check temporal restriction
-        long now = System.currentTimeMillis();
-        if (validityIntervalLowerBound <= now && now <= validityIntervalUpperBound) {
+        if (validityIntervalLowerBound <= System.currentTimeMillis() && System.currentTimeMillis() <= validityIntervalUpperBound) {
             return data;
         } else {
             throw new RtdDataHasExpired("Rtd Data has expired within lower and upper bound limits.");

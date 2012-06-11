@@ -13,13 +13,13 @@ import java.util.Iterator;
  */
 public class RtdDerived<T> extends Rtd<T> {
     private HashMap<String,Rtd<T>> readSet;
-    private CalcRtdDerivationInterface derivation = null;
+    private AbstractCalcRtdDerivation derivation = null;
 
     public RtdDerived() {
         this.readSet = new HashMap<String, Rtd<T>>();
     }
 
-    public RtdDerived(CalcRtdDerivationInterface derivation) {
+    public RtdDerived(AbstractCalcRtdDerivation derivation) {
         this.derivation = derivation;
         this.readSet = new HashMap<String, Rtd<T>>();
     }
@@ -44,16 +44,13 @@ public class RtdDerived<T> extends Rtd<T> {
     }
     
     public void calcDerivation() throws RtdException {
-        //Method for calculation of derivation
-        long now = System.currentTimeMillis();
-
         //Validate Temporal Consistency prior to calc
         //In this case, substract WorstCaseExecutionTime of calc method from DataDeadline
         refreshLimitInterval();
 
         // calculate derivation. Only if has derivation with calcRtdDerivationInterface defined
         if (derivation != null) {
-            if (this.getValidityIntervalUpperBound() - this.derivation.getWorstCaseExecutionTime() <= now) {
+            if (this.getValidityIntervalUpperBound() - this.derivation.getWorstCaseExecutionTime() <= System.currentTimeMillis()) {
                 throw new RtdDataHasExpired("Rtd Derivation it's not possible prior to DataDeadline.");
             }
 
