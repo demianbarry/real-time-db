@@ -10,6 +10,8 @@ import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import realtimedbutils.ValidatorRtdByte;
+import realtimedbutils.ValidatorRtdFloat;
 
 /**
  *
@@ -30,9 +32,10 @@ public class RtdTest {
     static protected RtdBaseDiscrete<Byte> testByteDiscrete;
     
     // class to implement derivation calculus of 
-    private static class MeasureValCalc implements CalcRtdDerivationInterface {
+    private static class MeasureValCalc extends AbstractCalcRtdDerivation {
 
-        public MeasureValCalc() {
+        public MeasureValCalc(long worstCaseExecutionTime) {
+            setWorstCaseExecutionTime(worstCaseExecutionTime);
         }
 
         @Override
@@ -55,59 +58,8 @@ public class RtdTest {
            
         }
 
-        @Override
-        public long getWorstCaseExecutionTime() {
-            return 5; //millisecond
-        }
     }
 
-    private static class ValidatorRtdByte implements ValidatorRtdInterface<Byte> {
-
-        public ValidatorRtdByte() {
-        }
-
-        @Override
-        public boolean validRtdDataValidRage(Byte minValid, Byte maxValid, Byte dataToCompare) {
-            if (dataToCompare.byteValue() < minValid.byteValue() || dataToCompare.byteValue() > maxValid.byteValue()) {
-                    return false;
-            }
-            return true;
-        }
-
-        @Override
-        public boolean validRtdMaxDataError(Byte compareFrom, Byte compareTo, Byte deltaToCompare) {
-            if (!(Math.abs(compareFrom.byteValue() - compareTo.byteValue()) > deltaToCompare.byteValue())) {
-                    return false;
-            }
-            return true;
-        }
-        
-        
-    }
-
-    // Class to implement valid Float Hardware percentage
-    private static class ValidatorRtdFloat implements ValidatorRtdInterface<Float> {
-
-        public ValidatorRtdFloat() {
-        }
-
-        @Override
-        public boolean validRtdDataValidRage(Float minValid, Float maxValid, Float dataToCompare) {
-            if (dataToCompare.floatValue() < minValid.floatValue() || dataToCompare.floatValue() > maxValid.floatValue()) {
-                    return false;
-            }
-            return true;
-        }
-
-        @Override
-        public boolean validRtdMaxDataError(Float compareFrom, Float compareTo, Float deltaToCompare) {
-            if (!(Math.abs(compareFrom.floatValue() - compareTo.floatValue()) > deltaToCompare.floatValue())) {
-                    return false;
-            }
-            return true;
-        }
-    }
-    
     public RtdTest() {
     }
 
@@ -123,7 +75,7 @@ public class RtdTest {
         loadTrend = new RtdBaseDiscrete<Float>();
         loadTrend.setValidatorRtd((ValidatorRtdInterface) new ValidatorRtdFloat());
         
-        measureVal = new RtdDerived<Float>((CalcRtdDerivationInterface) new MeasureValCalc());
+        measureVal = new RtdDerived<Float>((AbstractCalcRtdDerivation) new MeasureValCalc(Long.valueOf(5)));
         measureVal.addRtdReadSet("cpuWorkLoad",cpuWorkLoad);
         measureVal.addRtdReadSet("memWorkLoad",memWorkLoad);
         measureVal.addRtdReadSet("loadTrend",loadTrend);
@@ -204,11 +156,10 @@ public class RtdTest {
             System.out.println("set cpuWorkLoad data to 36");
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
             assertTrue(new Float(36).equals(cpuWorkLoad.getData()));
-            long currentTime = System.currentTimeMillis();
-            System.out.println("Current time: " + currentTime);
+            System.out.println("Current time: " + System.currentTimeMillis());
             System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
             System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
             System.out.println("----------------------------------------");
         } catch (RtdException ex) {
             fail(ex.getMessage());
@@ -223,11 +174,10 @@ public class RtdTest {
             System.out.println("set cpuWorkLoad data to 36.66");
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
             assertTrue(new Float(36).equals(cpuWorkLoad.getData()));
-            long currentTime = System.currentTimeMillis();
-            System.out.println("Current time: " + currentTime);
+            System.out.println("Current time: " + System.currentTimeMillis());
             System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
             System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
             System.out.println("----------------------------------------");
         } catch (RtdException ex) {
             fail(ex.getMessage());
@@ -242,11 +192,10 @@ public class RtdTest {
             System.out.println("set cpuWorkLoad data to 39.99999");
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
             assertTrue(new Float(36).equals(cpuWorkLoad.getData()));
-            long currentTime = System.currentTimeMillis();
-            System.out.println("Current time: " + currentTime);
+            System.out.println("Current time: " + System.currentTimeMillis());
             System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
             System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
             System.out.println("----------------------------------------");
         } catch (RtdException ex) {
             fail(ex.getMessage());
@@ -261,11 +210,10 @@ public class RtdTest {
             System.out.println("set cpuWorkLoad data to 45");
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
             assertTrue(new Float(45).equals(cpuWorkLoad.getData()));
-            long currentTime = System.currentTimeMillis();
-            System.out.println("Current time: " + currentTime);
+            System.out.println("Current time: " + System.currentTimeMillis());
             System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
             System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-            assertTrue(currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+            assertTrue(System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
             System.out.println("----------------------------------------");
         } catch (RtdException ex) {
             fail(ex.getMessage());
@@ -318,9 +266,6 @@ public class RtdTest {
             fail(ex.getMessage());
         }
         
-        // set current time
-        long currentTime = System.currentTimeMillis();
-        
         System.out.println("************************************************************");
         System.out.println("*** Test Real Time data behaviour - Validity time bounds ***");
         System.out.println("************************************************************");
@@ -328,7 +273,7 @@ public class RtdTest {
         // print & verify time limits
         System.out.println("Test now: " + initialTime);
         System.out.println("Initial time seted: " + initialTime);
-        System.out.println("Current time seted: " + currentTime);
+        System.out.println("Current time seted: " + System.currentTimeMillis());
         System.out.println("----------------------------------------");
         try {
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
@@ -338,7 +283,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
@@ -348,7 +293,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
@@ -358,7 +303,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && System.currentTimeMillis() <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             measureVal.calcDerivation();
@@ -368,18 +313,16 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for mesurableVal: " + measureVal.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for mesurableVal: " + measureVal.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= measureVal.getValidityIntervalLowerBound() && currentTime <= measureVal.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= measureVal.getValidityIntervalLowerBound() && System.currentTimeMillis() <= measureVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
         System.out.println();
         
         // Sleep 3 sec, still valid
         Thread.sleep(3000);
-        // set current time
-        currentTime = System.currentTimeMillis();
         System.out.println("Test 3 secs after: " + initialTime);
         System.out.println("Initial time seted: " + initialTime);
-        System.out.println("Current time seted: " + currentTime);
+        System.out.println("Current time seted: " + System.currentTimeMillis());
         System.out.println("----------------------------------------");
         try {
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
@@ -389,7 +332,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
@@ -399,7 +342,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
@@ -409,7 +352,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && System.currentTimeMillis() <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             measureVal.calcDerivation();
@@ -419,18 +362,16 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for mesurableVal: " + measureVal.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for mesurableVal: " + measureVal.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= measureVal.getValidityIntervalLowerBound() && currentTime <= measureVal.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= measureVal.getValidityIntervalLowerBound() && System.currentTimeMillis() <= measureVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
         System.out.println();
         
         // Sleep 1 sec more, not valid for cpuWorkLoad and measureVal
         Thread.sleep(1000);
-        // set current time
-        currentTime = System.currentTimeMillis();
         System.out.println("Test 1 secs after: " + initialTime);
         System.out.println("Initial time seted: " + initialTime);
-        System.out.println("Current time seted: " + currentTime);
+        System.out.println("Current time seted: " + System.currentTimeMillis());
         System.out.println("----------------------------------------");
         try {
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
@@ -441,7 +382,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-        assertFalse(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
@@ -451,7 +392,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
@@ -461,7 +402,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && System.currentTimeMillis() <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             measureVal.calcDerivation();
@@ -473,17 +414,15 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for mesurableVal: " + measureVal.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for mesurableVal: " + measureVal.getValidityIntervalUpperBound());
-        assertFalse(initialTime >= measureVal.getValidityIntervalLowerBound() && currentTime <= measureVal.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= measureVal.getValidityIntervalLowerBound() && System.currentTimeMillis() <= measureVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
 
         // Sleep 2 sec more, invalid data for all except loadTrend
         Thread.sleep(2000);
-        // set current time
-        currentTime = System.currentTimeMillis();
         System.out.println("Test 2 secs after: " + initialTime);
         System.out.println("Initial time seted: " + initialTime);
-        System.out.println("Current time seted: " + currentTime);
+        System.out.println("Current time seted: " + System.currentTimeMillis());
         System.out.println("----------------------------------------");
         try {
             System.out.println("cpuWorkLoad data: " + cpuWorkLoad.getData());
@@ -494,7 +433,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for cpuWorkLoad: " + cpuWorkLoad.getValidityIntervalUpperBound());
-        assertFalse(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && currentTime <= cpuWorkLoad.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= cpuWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= cpuWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("memWorkLoad data: " + memWorkLoad.getData());
@@ -505,7 +444,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for memWorkLoad: " + memWorkLoad.getValidityIntervalUpperBound());
-        assertFalse(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && currentTime <= memWorkLoad.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= memWorkLoad.getValidityIntervalLowerBound() && System.currentTimeMillis() <= memWorkLoad.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             System.out.println("loadTrend data: " + loadTrend.getData());
@@ -515,7 +454,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for loadTrend: " + loadTrend.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for loadTrend: " + loadTrend.getValidityIntervalUpperBound());
-        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && currentTime <= loadTrend.getValidityIntervalUpperBound());
+        assertTrue(initialTime >= loadTrend.getValidityIntervalLowerBound() && System.currentTimeMillis() <= loadTrend.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         try {
             measureVal.calcDerivation();
@@ -527,7 +466,7 @@ public class RtdTest {
         }
         System.out.println("Lower limit interval for mesurableVal: " + measureVal.getValidityIntervalLowerBound());
         System.out.println("Upper limit interval for mesurableVal: " + measureVal.getValidityIntervalUpperBound());
-        assertFalse(initialTime >= measureVal.getValidityIntervalLowerBound() && currentTime <= measureVal.getValidityIntervalUpperBound());
+        assertFalse(initialTime >= measureVal.getValidityIntervalLowerBound() && System.currentTimeMillis() <= measureVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
         System.out.println("****************************************");
     
