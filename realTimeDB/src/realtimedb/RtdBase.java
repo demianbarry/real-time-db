@@ -53,7 +53,7 @@ abstract public class RtdBase<T> extends Rtd<T>  {
                     throw new NotValidRtdData("Data is not valid in range.");
                 }
             }
-            
+
             // data change?
             // Only chage if diference value means change and not first set.
             if (maxDataError != null && this.data != null) {
@@ -64,14 +64,14 @@ abstract public class RtdBase<T> extends Rtd<T>  {
                 // maxDataError not set: set vale anyway
                 this.data = data;
             }
-            
-            // set new valid range time
-             setValidityIntervalLowerBound(System.currentTimeMillis());
+
         } else {
             // validator not set: set value anyway
             this.data = data;
         }
-        
+
+        // set new valid range time
+        setValidityIntervalLowerBound(System.currentTimeMillis());
     }
 
 }
