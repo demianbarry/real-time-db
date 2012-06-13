@@ -174,6 +174,16 @@ public class RtdTest {
             fail(ex.getMessage());
         }
         try {
+            System.out.print("cpuWorkLoad=-0.0001;");
+            cpuWorkLoad.setData(new Float(-0.0001));
+            fail("Data not in valid range");
+        } catch (NotValidRtdData ex) {
+            System.out.println("Not valid data for cpuWorkLoad<Float> type");
+            assertNotNull("Exception exit for not valid data for cpuWorkLoad<Float> type", ex);
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
+        try {
             cpuWorkLoad.setData(new Float(70));
             System.out.print("cpuWorkLoad="+cpuWorkLoad.getData()+";");
             assertNotNull("Pass set valid data range for float", cpuWorkLoad);
@@ -450,6 +460,12 @@ public class RtdTest {
         assertFalse(initialTime >= measureVal.getValidityIntervalLowerBound() && System.currentTimeMillis() <= measureVal.getValidityIntervalUpperBound());
         System.out.println("----------------------------------------");
 
+        // update cpuWorkLoad
+        try {
+            cpuWorkLoad.setData(new Float(40));
+        } catch (RtdException ex) {
+            fail(ex.getMessage());
+        }
         // Sleep 2 sec more, invalid data for all except loadTrend
         Thread.sleep(2000);
         System.out.print("2 secs after");
@@ -460,7 +476,7 @@ public class RtdTest {
         try {
             System.out.print("cpuWorkLoad=" + cpuWorkLoad.getData());
             System.out.print(";");
-            fail("cpuWorkLoad data has exired");
+            assertTrue(new Float(40).equals(cpuWorkLoad.getData()));
         } catch (RtdException ex) {
             assertNotNull(ex.getMessage(), ex);
             System.out.println("cpuWorkLoad: " + ex.getMessage());
