@@ -1,0 +1,5 @@
+Real-Time Systems incorporate data-intensive applications within a wide range of solutions. A common problem that developers have to manage is data-oriented design with temporal constraints, since it implies considering specific rules and properties to guarantee the validity of objects at particular points of time. This work puts forward a model to facilitate this task.
+
+We present the concept of real-time data with guarantees of temporal consistency, and a set of associated classifications and definitions. Based on this, we model abstract data type that can be parameterized and encapsulates attributes and validations of temporal constraints. Thus, the application developer can be freed from these design responsibilities.
+
+At this proyect, we offer a Java implementation of basic infrastructure for real-time database objects with temporal consistency validation
